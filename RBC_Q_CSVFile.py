@@ -36,7 +36,7 @@ for t in new_titles[:-1]:
 f = open('Quotes.csv', 'w', encoding='utf-8')
 inputStr = ''
 for item in exlist:
-    inputStr = (',').join(item)
+    inputStr = ('\t').join(item)
     print(inputStr)
     f.write(inputStr+'\n')
 f.close()
