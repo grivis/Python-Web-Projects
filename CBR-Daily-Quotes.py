@@ -38,4 +38,5 @@ print(new_titles)
 # for t in titles:
 #     clean_t = regSpace.sub("*", t)
 #     clean_t = regTag.sub("*", clean_t)
+
 #     new_titles.append(clean_t)
