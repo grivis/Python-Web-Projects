@@ -33,7 +33,7 @@ for t in new_titles[:-1]:
             break
     exlist.append(tl)
 
-f = open('Quotes.csv', 'w', encoding='utf-8')
+f = open('Quotes.csv', 'w', encoding='cp1251')
 inputStr = ''
 for item in exlist:
     inputStr = ('\t').join(item)
