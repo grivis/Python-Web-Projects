@@ -1,7 +1,7 @@
 import urllib.request  # импортируем модуль
 import re
 
-url = 'http://cbr.ru/currency_base/daily.aspx?date_req=21.10.2016'  # адрес страницы, которую мы хотим скачать
+url = 'http://cbr.ru/currency_base/daily.aspx?date_req=24.10.2016'  # адрес страницы, которую мы хотим скачать
 user_agent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64)'  # хотим притворяться браузером
 
 req = urllib.request.Request(url, headers={'User-Agent': user_agent})
