@@ -19,7 +19,7 @@ regTDClose = re.compile('</td>', flags=re.U | re.DOTALL)
 regTRopen = re.compile('<tr>', flags=re.U | re.DOTALL)
 regTRClose = re.compile('</tr>', flags=re.U | re.DOTALL)
 regTag = re.compile('<.*?>', flags=re.U | re.DOTALL)
-regSpace = re.compile('\s{2,}', flags=re.U | re.DOTALL)
+#regSpace = re.compile('\s{2,}', flags=re.U | re.DOTALL)
 
 for t in titles:
     t = t.replace('\r', '')
@@ -29,7 +29,7 @@ for t in titles:
     clean_t = regTRopen.sub('', clean_t)
     clean_t = regTRClose.sub('*', clean_t)
     clean_t = regTag.sub("", clean_t)
-    clean_t = regSpace.sub("*", clean_t)
+    #clean_t = regSpace.sub("*", clean_t)
     currlst = clean_t.split('*')
 
 
