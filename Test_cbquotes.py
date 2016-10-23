@@ -12,4 +12,6 @@ yyyy = '2016'
 
 todayq = cbquotes(dd, mm, yyyy)
 
-print(todayq)
+name, krat, kurs, kod = todayq['USD']
+
+print(krat, name, 'за', kurs, 'рублей')
