@@ -36,5 +36,6 @@ for t in titles:
     currlst = clean_t.split('*')
     #print(currlst)
 
+
 for currency in currlst:
     print(currency)
