@@ -14,9 +14,6 @@ regPostTitle = re.compile('<table class="data">.*?</table>', flags=re.U | re.DOT
 titles = regPostTitle.findall(html)
 
 
-#print(titles)
-
-new_titles = []
 regTDopen = re.compile('<td>', flags=re.U | re.DOTALL)
 regTDClose = re.compile('</td>', flags=re.U | re.DOTALL)
 regTRopen = re.compile('<tr>', flags=re.U | re.DOTALL)
@@ -34,7 +31,6 @@ for t in titles:
     clean_t = regTag.sub("", clean_t)
     clean_t = regSpace.sub("*", clean_t)
     currlst = clean_t.split('*')
-    #print(currlst)
 
 
 for currency in currlst:
