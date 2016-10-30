@@ -6,7 +6,7 @@
 from CBR_Daily_Quotes import *
 #import CBR_Daily_Quotes
 
-dd = '24'
+dd = '30'
 mm = '10'
 yyyy = '2016'
 
