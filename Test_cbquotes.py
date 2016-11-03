@@ -6,8 +6,8 @@
 from CBR_Daily_Quotes import *
 #import CBR_Daily_Quotes
 
-dd = '30'
-mm = '10'
+dd = '3'
+mm = '11'
 yyyy = '2016'
 
 todayq = cbquotes(dd, mm, yyyy)
@@ -15,3 +15,4 @@ todayq = cbquotes(dd, mm, yyyy)
 name, krat, kurs, kod = todayq['USD']
 
 print(krat, name, 'за', kurs, 'рублей')
+

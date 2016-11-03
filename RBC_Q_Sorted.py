@@ -4,6 +4,28 @@ import re
 def itemsort(item):
      return item[2]
 
+def bubbleSort(alist):
+    for passnum in range(len(alist)-1,0,-1):
+        for i in range(passnum):
+            if alist[i][2]<alist[i+1][2]:
+                temp = alist[i]
+                alist[i] = alist[i+1]
+                alist[i+1] = temp
+    return alist
+
+'''
+  rbcqread(deal, currency, nquotes)
+
+  deal - buy или sell
+  currency - USD, EUR, GBP, ..
+  nquotes - сколько котировок в отсортированном списке
+
+  returns
+
+  список из nquotes предложений
+
+'''
+
 url = 'http://quote.rbc.ru/cash/?currency=3&city=1&deal=sell&amount=100'  # адрес страницы, которую мы хотим скачать
 user_agent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64)'  # хотим притворяться браузером
 
@@ -18,13 +40,16 @@ regPostTitle = re.compile(
     flags=re.U | re.DOTALL)
 titles = regPostTitle.findall(html)
 
+
 new_titles = []
 regTag = re.compile('<.*?>', flags=re.U | re.DOTALL)
 regSpace = re.compile('\s{2,}', flags=re.U | re.DOTALL)
 for t in titles:
     clean_t = regSpace.sub("*", t)
     clean_t = regTag.sub("*", clean_t)
+    clean_t = clean_t.replace('%', '')
     new_titles.append(clean_t)
+
 exlist = []
 for t in new_titles[:-1]:
     tl = t.split('*')
@@ -35,31 +60,19 @@ for t in new_titles[:-1]:
             break
     exlist.append(tl)
 
+exlist_num = []
 for item in exlist:
     it = item
     it[2] = float(it[2])
     it[3] = float(it[3])
-    print(it)
+    exlist_num.append(it)
 
-# exlist.sort(key=itemsort, reverse=True)
-# for item in exlist:
-#     print(item)
+#exlist_s = bubbleSort(exlist_num)
+exlist_num.sort(key=itemsort, reverse=True)
 
-for j in range(1, len(exlist), 1):
-    key = exlist[j][2]
-    i = j - 1
-    while i >= 0 and exlist[i][2] <= key:
-        exlist[i + 1] = exlist[i]
-        i -= 1
-    exlist[i + 1][2] = key
+print('Пять самых лучших мест, где можно ПРОДАТЬ валюту\n')
+for item in exlist_num[:5]:
+    print(item[5], item[2], item[0], item[1], sep=4*'\t')
 
-for item in exlist:
-    print(item)
-# f = open('Quotes.csv', 'w', encoding='cp1251')
-# inputStr = ''
-# for item in exlist:
-#     inputStr = ('\t').join(str(item))
-#     f.write(inputStr+'\n')
-# f.close()
 
-####РАЗОБРАТЬСЯ С СОРТИРОВКОЙ! СОРТИРУЕТ НЕПРАВИЛЬНО
+
