@@ -43,16 +43,23 @@ def CalendarDate(JDN):
     year = 100*b + d - 4800 + (m // 10)
     return year, month, day
 
+dw = ['понедельник', 'вторник', 'среда', 'четверг','пятница', 'суббота','воскресенье']
+
 year = 2016
 month = 11
 day = 6
 
 JDN = JulianDate(year, month, day)
+dwn = JDN % 7
+print('Сегодня:', dw[dwn])
+
 
 print('Юлианская дата сегодня', JDN)
 
-JDN10 = JDN - 10
+JDN100 = JDN - 100
 
-year10, month10, day10 = CalendarDate(JDN10)
+year10, month10, day10 = CalendarDate(JDN100)
+dwn = JDN100 % 7
 
-print('Юлианская дата 10 дней назад', year10, month10, day10 )
+print('Юлианская дата 100 дней назад', year10, month10, day10 )
+print('Это был(а):', dw[dwn])
