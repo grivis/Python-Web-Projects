@@ -93,7 +93,14 @@ def rbcqread(city, deal, currency, nquotes):
 
     exlist_num.sort(key=itemsort, reverse= rr)
 
-    if nquotes > len(exlist_num)-1:
-        nquotes = len(exlist_num)-1
+    average = 0
+    TotalQ = len(exlist_num)
+    for i in range(TotalQ):
+        average += exlist_num[i][2]
+    average /= TotalQ
 
-    return exlist_num[:nquotes]
+
+    if nquotes > TotalQ -1:
+        nquotes = TotalQ - 1
+
+    return TotalQ, average, exlist_num[:nquotes]
