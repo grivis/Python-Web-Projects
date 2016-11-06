@@ -30,4 +30,5 @@ while True:
         print(item[2], item[0], item[1], item[5], sep=4 * '\t')
     print()
 
+
     sleep(30)
