@@ -1,20 +1,23 @@
+from CBR_Daily_Quotes import *
 from RBC_Q_Sort_Function import *
 from tkinter import *
 from time import *
 
+
 win = NONE
+cur = NONE
 months = {1: 'января', 2: 'февраля', 3: 'марта', 4: 'апреля', 5: 'мая', 6: 'июня', 7: 'июля', 8: 'августа', 9: 'сентября',10: 'октября', 11: 'ноября', 12: 'декабря'}
 cities = {0 : 'Москве' , 1 : 'Санкт-Петербурге'}
 currency = {0 : 'USD' , 1 : 'EUR'}
 deal_type = {0 : 'покупке' , 1 : 'продаже'}
 
 
-def CB_Quotes(day):
-    ticks = time.time()
-    lt = time.localtime(ticks)
+def CB_Quotes(day, cur_par):
+    ticks = time()
+    lt = localtime(ticks)
 
     ticks = ticks - 60 * 60 * 24 * day
-    lt = time.localtime(ticks)
+    lt = localtime(ticks)
 
     dd_par = str(lt.tm_mday)
     mm_par = str(lt.tm_mon)
@@ -22,20 +25,22 @@ def CB_Quotes(day):
 
     todayq_par = cbquotes(dd_par, mm_par, yyyy_par)
 
-    name, krat, kurs, kod = todayq['USD']
+    name, krat, kurs, kod = todayq_par[cur_par]
 
     return kurs
 
-def show(city, cur, deal):
+def show(city, cur1, deal):
     global months, cities, currency, deal_type
     city = city.get()
-    cur = cur.get()
+    cur = cur1.get()
     deal = deal.get()
     nquotes = 15
 
     win = Toplevel(root)
     win.minsize(width=600, height=580)
     win.maxsize(width=600, height=580)
+    imgwin = Image("photo", file="dollar-sign-money-symbol-clipart.png")
+    win.tk.call('wm', 'iconphoto', win._w, imgwin)
     dateLb = Label(win, text='', font='Arial 9')
     dateLb.grid(column=0, row=0, padx=5, pady=5, sticky=W)
     dateLb1 = Label(win, text='', font='Arial 9')
@@ -52,27 +57,27 @@ def show(city, cur, deal):
     lis = Listbox(win, selectmode=SINGLE, height=15, width=97)
     lis.grid(column=0, row=6, padx=5, pady=5, sticky=W)
 
-    CB_today = CB_Quotes(1)
+    CB_today = CB_Quotes(0, currency[cur])
     #CB_today = '35.12'
-    prBank6 = 'Курс ЦБ РФ сегодня: ' + CB_today
+    prBank6 = 'Курс ЦБ РФ сегодня: ' + str(CB_today)
     dateLb6 = Label(win, text=prBank6, font='Arial 9')
     dateLb6.grid(column=0, row=7, padx=5, pady=5, sticky=W)
 
-    CB_15 = CB_Quotes(1)
+    CB_15 = CB_Quotes(15, currency[cur])
     #CB_15 = '34.13'
-    prBank7 = 'Курс ЦБ РФ 15 дней назад: ' + CB_15
+    prBank7 = 'Курс ЦБ РФ 15 дней назад: ' + str(CB_15)
     dateLb7 = Label(win, text=prBank7, font='Arial 9')
     dateLb7.grid(column=0, row=8, padx=5, pady=5, sticky=W)
 
-    CB_30 = CB_Quotes(30)
+    CB_30 = CB_Quotes(30, currency[cur])
     #CB_30 = '36.19'
-    prBank8 = 'Курс ЦБ РФ 30 дней назад: ' + CB_30
+    prBank8 = 'Курс ЦБ РФ 30 дней назад: ' + str(CB_30)
     dateLb8 = Label(win, text=prBank8, font='Arial 9')
     dateLb8.grid(column=0, row=9, padx=5, pady=5, sticky=W)
 
-    CB_90 = CB_Quotes(90)
+    CB_90 = CB_Quotes(90, currency[cur])
     #CB_90 = '35.98'
-    prBank9 = 'Курс ЦБ РФ 90 дней назад: ' + CB_90
+    prBank9 = 'Курс ЦБ РФ 90 дней назад: ' + str(CB_90)
     dateLb9 = Label(win, text=prBank9, font='Arial 9')
     dateLb9.grid(column=0, row=10, padx=5, pady=5, sticky=W)
 
@@ -110,18 +115,20 @@ def show(city, cur, deal):
     lis.delete(0, END)
 
     for item in qlist[2]:
-        stringTowrite = item[0] + ' ' + item[1] + ' ' + item[2] + '\n'
+        stringTowrite = str(item[0]) + ' ' + str(item[1]) + ' ' + str(item[2]) ####
         lis.insert(END, stringTowrite)
     #
-     #   sleep(1)
+     #   sleep(10)
 
 
 
 
 root = Tk()
 root.title('Котировки наличной валюты')
-root.minsize(width= 460, height=160)
-root.maxsize(width= 460, height=160)
+root.minsize(width= 500, height=160)
+root.maxsize(width= 500, height=160)
+img = Image("photo", file="blue-dollar-si-odqpui-clipart.png")
+root.tk.call('wm', 'iconphoto', root._w, img)
 
 fra1 = Frame(root,width=200,height=200, bd = 5, relief=GROOVE)
 fra1.grid(row = 0, column = 0, padx = 10, pady = 10)
