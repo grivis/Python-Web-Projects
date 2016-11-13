@@ -95,6 +95,8 @@ def show(city, cur1, deal):
 
 
     #while True:
+def quotUpdate():
+    global deal, city, currency, cur
     ticks = time()
     lt = localtime(ticks)
 

@@ -91,6 +91,7 @@ def show(city, cur1, deal):
     dateLb9.grid(column=0, row=10, padx=5, pady=5, sticky=W)
 
 
+
     #while True:
     ticks = time()
     lt = localtime(ticks)
