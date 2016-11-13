@@ -10,6 +10,7 @@ months = {1: 'января', 2: 'февраля', 3: 'марта', 4: 'апре�
 cities = {0 : 'Москве' , 1 : 'Санкт-Петербурге'}
 currency = {0 : 'USD' , 1 : 'EUR'}
 deal_type = {0 : 'покупке' , 1 : 'продаже'}
+deal_type1 = {0: 'Покупка', 1: 'Продажа'}
 
 
 def CB_Quotes(day, cur_par):
@@ -30,7 +31,7 @@ def CB_Quotes(day, cur_par):
     return kurs
 
 def show(city, cur1, deal):
-    global months, cities, currency, deal_type
+    global months, cities, currency, deal_type, deal_type1
     city = city.get()
     cur = cur1.get()
     deal = deal.get()
@@ -39,7 +40,15 @@ def show(city, cur1, deal):
     win = Toplevel(root)
     win.minsize(width=600, height=580)
     win.maxsize(width=600, height=580)
-    imgwin = Image("photo", file="dollar-sign-money-symbol-clipart.png")
+
+    newTitle = deal_type1[deal] + ' ' + currency[cur] + ' в ' + cities[city]
+    win.title(newTitle)
+
+    if cur == 0:
+        imgwin = Image("photo", file="dollar-sign-money-symbol-clipart.png")
+    elif cur == 1:
+        imgwin = Image("photo", file="evro-6.png")
+
     win.tk.call('wm', 'iconphoto', win._w, imgwin)
     dateLb = Label(win, text='', font='Arial 9')
     dateLb.grid(column=0, row=0, padx=5, pady=5, sticky=W)
@@ -127,7 +136,7 @@ root = Tk()
 root.title('Котировки наличной валюты')
 root.minsize(width= 500, height=160)
 root.maxsize(width= 500, height=160)
-img = Image("photo", file="blue-dollar-si-odqpui-clipart.png")
+img = Image("photo", file="dol_eur_4.png")
 root.tk.call('wm', 'iconphoto', root._w, img)
 
 fra1 = Frame(root,width=200,height=200, bd = 5, relief=GROOVE)
