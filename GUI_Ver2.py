@@ -93,10 +93,12 @@ def show(city, cur1, deal):
     dateLb9 = Label(win, text=prBank9, font='Arial 9')
     dateLb9.grid(column=0, row=10, padx=5, pady=5, sticky=W)
 
+    quotUpdate()
+
 
     #while True:
 def quotUpdate():
-    global deal, city, currency, cur
+    global deal, city, currency, cur, dateLb, lis, nquotes, dateLb1, dateLb2, dateLb3, dateLb4, dateLb5
     ticks = time()
     lt = localtime(ticks)
 
