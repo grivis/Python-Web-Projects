@@ -47,12 +47,12 @@ def show(city, cur1, deal):
     newTitle = deal_type1[deal] + ' ' + currency[cur] + ' в ' + cities[city]
     win.title(newTitle)
 
-    if cur == 0:
-        imgwin = Image("photo", file="dollar-sign-money-symbol-clipart.png")
-    elif cur == 1:
-        imgwin = Image("photo", file="evro-6.png")
-
-    win.tk.call('wm', 'iconphoto', win._w, imgwin)
+    # if cur == 0:
+    #     imgwin = Image("photo", file="dollar-sign-money-symbol-clipart.png")
+    # elif cur == 1:
+    #     imgwin = Image("photo", file="evro-6.png")
+    #
+    # win.tk.call('wm', 'iconphoto', win._w, imgwin)
     dateLb = Label(win, text='', font='Arial 9')
     dateLb.grid(column=0, row=0, padx=5, pady=5, sticky=W)
     dateLb1 = Label(win, text='', font='Arial 9')
@@ -155,7 +155,7 @@ fra2.grid(row = 0, column = 1, padx = 10, pady = 10)
 fra3 = Frame(root,width=200,height=200, bd = 5, relief=GROOVE)
 fra3.grid(row = 0, column = 2, padx = 10, pady = 10)
 
-chCity = Label(fra1, text = 'Выберите город:', font = 'Arial 10')
+chCity = Label(fra1, text = 'Выберите город:', font = 'Arial 9')
 chCity.grid(column = 0, row = 0, padx = 5, pady = 5, sticky = W)
 
 varCity = IntVar()
@@ -164,7 +164,7 @@ rad0.grid(column=0, row=1, sticky=W)
 rad1 = Radiobutton(fra1, text="Санкт-Петербург", variable=varCity, value=1)
 rad1.grid(column=0, row=2, sticky=W)
 
-chCur = Label(fra2, text = 'Выберите валюту:', font = 'Arial 10')
+chCur = Label(fra2, text = 'Выберите валюту:', font = 'Arial 9')
 chCur.grid(column = 0, row = 0, padx = 5, pady = 5, sticky = W)
 
 varCur = IntVar()
@@ -173,7 +173,7 @@ rad2.grid(column=0, row=1, sticky=W)
 rad3 = Radiobutton(fra2, text="EUR", variable=varCur, value=1)
 rad3.grid(column=0, row=2, sticky=W)
 
-chDeal = Label(fra3, text = 'Выберите сделку:', font = 'Arial 10')
+chDeal = Label(fra3, text = 'Выберите сделку:', font = 'Arial 9')
 chDeal.grid(column = 0, row = 0, padx = 5, pady = 5, sticky = W)
 varDeal = IntVar()
 rad4 = Radiobutton(fra3, text="Покупка", variable=varDeal, value=0)
