@@ -1,3 +1,23 @@
+from time import *
+
+def CB_Quotes():
+    ticks = time()
+
+    daysLst = [0, 15, 30, 90]
+    histquotes = {}
+    for i in daysLst:
+        ticks = ticks - 60 * 60 * 24 * i
+        lt = localtime(ticks)
+
+        dd_par = str(lt.tm_mday)
+        mm_par = str(lt.tm_mon)
+        yyyy_par = str(lt.tm_year)
+        histquotes[str(i)] = cbquotes(dd_par, mm_par, yyyy_par)
+
+
+    return histquotes
+
+
 
 
 def cbquotes(dd, mm, yyyy):

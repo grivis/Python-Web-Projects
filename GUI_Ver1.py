@@ -39,12 +39,6 @@ def show(city, cur1, deal):
     win = Toplevel(root)
     win.minsize(width=600, height=580)
     win.maxsize(width=600, height=580)
-    if cur == 0:
-        imgwin = Image("photo", file="dollar-sign-money-symbol-clipart.png")
-    elif cur == 1:
-        imgwin = Image("photo", file="evro-6.png")
-
-    win.tk.call('wm', 'iconphoto', win._w, imgwin)
     dateLb = Label(win, text='', font='Arial 9')
     dateLb.grid(column=0, row=0, padx=5, pady=5, sticky=W)
     dateLb1 = Label(win, text='', font='Arial 9')
@@ -87,44 +81,43 @@ def show(city, cur1, deal):
 
 
     #while True:
-    def quotshow():
-        ticks = time()
-        lt = localtime(ticks)
+    ticks = time()
+    lt = localtime(ticks)
 
-        ddNow = str(lt.tm_mday)
-        mmNow = str(lt.tm_mon)
-        yyyyNow = str(lt.tm_year)
-        hourNow = str(lt.tm_hour)
-        minNow = str(lt.tm_min)
+    ddNow = str(lt.tm_mday)
+    mmNow = str(lt.tm_mon)
+    yyyyNow = str(lt.tm_year)
+    hourNow = str(lt.tm_hour)
+    minNow = str(lt.tm_min)
 
-        tempDeal = 'buy' if deal == 0 else 'sell'
-        tempCity = 'МСК' if city == 0 else 'СПБ'
-        qlist = rbcqread(tempCity, tempDeal, currency[cur], nquotes)
-        #qlist = ['12', 35.12345123, [['35', 'Марьино', 'АКБ Банк'], ['34,3', 'Митино', 'СБК Банк'], ['35,15', 'Сокол', 'Альфа банк']]]
+    tempDeal = 'buy' if deal == 0 else 'sell'
+    tempCity = 'МСК' if city == 0 else 'СПБ'
+    qlist = rbcqread(tempCity, tempDeal, currency[cur], nquotes)
+    #qlist = ['12', 35.12345123, [['35', 'Марьино', 'АКБ Банк'], ['34,3', 'Митино', 'СБК Банк'], ['35,15', 'Сокол', 'Альфа банк']]]
 
 
-        dateNow = 'Сегодня ' + ddNow + ' ' + months[lt.tm_mon] + ' ' + yyyyNow
-        prBank = 'Предложения банков в ' + cities[city] + ' на ' + hourNow + ' часов ' + minNow + ' минут(ы)'
-        prBank1 = 60 * '* '
-        prBank2 = 'Всего имеется {0} предложений'.format(qlist[0])
-        prBank3 = 'Средний курс - {0:5.2f}'.format(qlist[1])
-        prBank4 = 'Лучшие предложения по ' + deal_type[deal] + ' ' + currency[cur] + ':'
+    dateNow = 'Сегодня ' + ddNow + ' ' + months[lt.tm_mon] + ' ' + yyyyNow
+    prBank = 'Предложения банков в ' + cities[city] + ' на ' + hourNow + ' часов ' + minNow + ' минут(ы)'
+    prBank1 = 60 * '* '
+    prBank2 = 'Всего имеется {0} предложений'.format(qlist[0])
+    prBank3 = 'Средний курс - {0:5.2f}'.format(qlist[1])
+    prBank4 = 'Лучшие предложения по ' + deal_type[deal] + ' ' + currency[cur] + ':'
 
-        dateLb.configure(text=dateNow)
-        dateLb1.configure(text=prBank)
-        dateLb2.configure(text=prBank1)
-        dateLb3.configure(text=prBank2)
-        dateLb4.configure(text=prBank3)
-        dateLb5.configure(text=prBank4)
+    dateLb.configure(text=dateNow)
+    dateLb1.configure(text=prBank)
+    dateLb2.configure(text=prBank1)
+    dateLb3.configure(text=prBank2)
+    dateLb4.configure(text=prBank3)
+    dateLb5.configure(text=prBank4)
 
-        lis.delete(0, END)
+    lis.delete(0, END)
 
-        for item in qlist[2]:
-            stringTowrite = str(item[0]) + ' ' + str(item[1]) + ' ' + str(item[2]) ####
-            lis.insert(END, stringTowrite)
-        #
-         #   sleep(10)
-    win.after(20000, quotshow)
+    for item in qlist[2]:
+        stringTowrite = str(item[0]) + ' ' + str(item[1]) + ' ' + str(item[2]) ####
+        lis.insert(END, stringTowrite)
+    #
+     #   sleep(10)
+    #win.after(10000, lambda : show(varCity, varCur, varDeal))
 
 
 
