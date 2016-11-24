@@ -3,6 +3,7 @@ from RBC_Q_Sort_Function import *
 from tkinter import *
 from time import *
 
+global win
 
 win = NONE
 cur = NONE
@@ -16,6 +17,7 @@ histquotes = CB_Quotes()
 
 
 def show(currency):
+    global win
     win = Toplevel(root)
     win.minsize(width=600, height=580)
     win.maxsize(width=600, height=580)
@@ -49,7 +51,11 @@ def show(currency):
     prBank9 = 'Курс ЦБ РФ 90 дней назад: ' + str(CB_90)
     dateLb9 = Label(win, text=prBank9, font='Arial 9')
     dateLb9.grid(column=0, row=10, padx=5, pady=5, sticky=W)
-    win.after(20000, lambda : showrbc(win, tempCity, tempDeal, currency[cur], nquotes))
+
+    showrbc(win, tempCity, tempDeal, currency[cur], nquotes)
+    win.update()
+
+
 
 
 def showrbc(win, tempCity, tempDeal, currid, nquotes):
@@ -157,5 +163,7 @@ nquotes = 15
 tempDeal = 'buy' if deal == 0 else 'sell'
 tempCity = 'МСК' if city == 0 else 'СПБ'
 #
-#win.after(20000, lambda : showrbc(win, tempCity, tempDeal, currency[cur], nquotes) )
+# if win is not None:
+#         showrbc(win, tempCity, tempDeal, currency[cur], nquotes)
+
 root.mainloop()

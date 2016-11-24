@@ -142,9 +142,9 @@ def findWay(yourStation, bankStation):
     return metroTMP[bankStation][1], wayList
 
 
-# wayQual, myWay = findWay('Новые черемушки', 'Курская')
-# print(wayQual)
-# print(myWay)
+wayQual, myWay = findWay('Теплый стан', 'Бибирево')
+print(wayQual)
+print(myWay)
 
 
 
