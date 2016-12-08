@@ -2,8 +2,11 @@ from CBR_Daily_Quotes import *
 from RBC_Q_Sort_Function import *
 from tkinter import *
 from time import *
+#from metroFind_more import *
+import tkinter.ttk
+from metroFind_more_Class import *
 
-
+metro_st = set(list(metroTMP))
 win = NONE
 cur = NONE
 months = {1: 'января', 2: 'февраля', 3: 'марта', 4: 'апреля', 5: 'мая', 6: 'июня', 7: 'июля', 8: 'августа', 9: 'сентября',10: 'октября', 11: 'ноября', 12: 'декабря'}
@@ -11,6 +14,14 @@ cities = {0 : 'Москве' , 1 : 'Санкт-Петербурге'}
 currency = {0 : 'USD' , 1 : 'EUR'}
 deal_type = {0 : 'покупке' , 1 : 'продаже'}
 
+def form_metrolst(metro_st):
+    tempLst = []
+    for i in metro_st:
+        if i[-2:].isdigit():
+            tempLst.append(i[:-2])
+        else:
+            tempLst.append(i[:-1])
+    return tempLst
 
 def CB_Quotes(day, cur_par):
     ticks = time()
@@ -29,8 +40,44 @@ def CB_Quotes(day, cur_par):
 
     return kurs
 
-def show(city, cur1, deal):
+
+def sortKey(item):
+    return item[0]
+
+
+# def findNearestMetro(mySt, lst):
+#     print('lat = ', lst)
+#     far_dic = []
+#     for i in lst:
+#         if i[-1] != '':
+#             print(mySt, i[-1])
+#             num = findWay(mySt, i[-1])
+#             temp = (num, i)
+#             far_dic.append(temp)
+#
+#     far_dic.sort(key=sortKey)
+#     sort_lst = [i[1] for i in far_dic]
+#     print('far_dic = ', far_dic)
+#     return sort_lst
+
+def findNearestMetro(mySt, lst):
+    far_dic = []
+    for i in lst:
+        if i[-1] != '':
+            num = findWay(mySt, i[-1])
+            temp = (num, i)
+            far_dic.append(temp)
+
+    far_dic.sort(key=sortKey)
+    #sort_lst = [i[1] for i in far_dic]
+    #print('far_dic = ', far_dic)
+    #return sort_lst
+    return far_dic
+
+
+def show(city, cur1, deal, metro1):
     global months, cities, currency, deal_type
+    metro = metro1.get()
     city = city.get()
     cur = cur1.get()
     deal = deal.get()
@@ -92,8 +139,13 @@ def show(city, cur1, deal):
 
     tempDeal = 'buy' if deal == 0 else 'sell'
     tempCity = 'МСК' if city == 0 else 'СПБ'
-    qlist = rbcqread(tempCity, tempDeal, currency[cur], nquotes)
-    #qlist = ['12', 35.12345123, [['35', 'Марьино', 'АКБ Банк'], ['34,3', 'Митино', 'СБК Банк'], ['35,15', 'Сокол', 'Альфа банк']]]
+    #qlist = rbcqread(tempCity, tempDeal, currency[cur], nquotes)
+    qlist = ['12', 35.12345123, [['35', 'АКБ Банк', 'Марьино'], ['34,3', 'СБК Банк', 'Митино'], ['35,15', 'Альфа банк', 'Сокол'], ['33', 'Мой банк', 'Сокольники'], ['33', 'Твой банк', 'Фили'], ['33,7', 'Ваш банк', 'Библиотека имени Ленина']]]
+
+    if metro != '':
+        sort_by_metro_lst = findNearestMetro(metro, qlist[2])
+    else:
+        sort_by_metro_lst = qlist[2]
 
 
     dateNow = 'Сегодня ' + ddNow + ' ' + months[lt.tm_mon] + ' ' + yyyyNow
@@ -112,8 +164,12 @@ def show(city, cur1, deal):
 
     lis.delete(0, END)
 
-    for item in qlist[2]:
-        stringTowrite = str(item[0]) + ' ' + str(item[1]) + ' ' + str(item[2]) ####
+    # for item in qlist[2]:
+    #     stringTowrite = str(item[0]) + ' ' + str(item[1]) + ' ' + str(item[2]) ####
+    #     lis.insert(END, stringTowrite)
+
+    for item in sort_by_metro_lst:
+        stringTowrite = str(item[1][0]) + ' ' + str(item[1][1]) + ' ' + str(item[1][2]) + '   приблизительное время в пути = ' + str(item[0] * 2)
         lis.insert(END, stringTowrite)
     #
      #   sleep(10)
@@ -124,10 +180,13 @@ def show(city, cur1, deal):
 
 root = Tk()
 root.title('Котировки наличной валюты')
-root.minsize(width= 530, height=160)
-root.maxsize(width= 530, height=160)
+root.minsize(width= 530, height=170)
+root.maxsize(width= 530, height=170)
 img = Image("photo", file="dol_eur_4.png")
 root.tk.call('wm', 'iconphoto', root._w, img)
+
+metro_lst = form_metrolst(metro_st)
+metro_lst.sort()
 
 fra1 = Frame(root,width=200,height=200, bd = 5, relief=GROOVE)
 fra1.grid(row = 0, column = 0, padx = 10, pady = 10)
@@ -137,6 +196,9 @@ fra2.grid(row = 0, column = 1, padx = 10, pady = 10)
 
 fra3 = Frame(root,width=200,height=200, bd = 5, relief=GROOVE)
 fra3.grid(row = 0, column = 2, padx = 10, pady = 10)
+
+fra4 = Frame(root,width=330,height=40, bd = 5, relief=GROOVE)
+fra4.grid(row = 1, column = 0, padx = 0, pady = 0, columnspan = 2)
 
 chCity = Label(fra1, text = 'Выберите город:', font = 'Arial 12')
 chCity.grid(column = 0, row = 0, padx = 5, pady = 5, sticky = W)
@@ -164,7 +226,14 @@ rad4.grid(column=0, row=1, sticky=W)
 rad4 = Radiobutton(fra3, text="Продажа", variable=varDeal, value=1)
 rad4.grid(column=0, row=2, sticky=W)
 
-bt = Button(root, text = 'Показать', command=lambda : show(varCity, varCur, varDeal))
+chMetro = Label(fra4, text = 'Ваша станция метро:', font = 'Arial 10')
+chMetro.grid(column = 0, row = 0, padx = 5, pady = 5, sticky = W)
+
+varMetro = StringVar()
+combobox = tkinter.ttk.Combobox(fra4,values = metro_lst ,height=20, textvariable=varMetro)
+combobox.grid(column=1, row=0, sticky=W, padx = 15, pady = 5)
+
+bt = Button(root, text = 'Показать', command=lambda : show(varCity, varCur, varDeal, varMetro))
 bt.grid(column=2, row=1, sticky=E, padx = 12, pady = 10)
 
 
