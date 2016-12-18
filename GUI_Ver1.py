@@ -139,8 +139,8 @@ def show(city, cur1, deal, metro1):
 
     tempDeal = 'buy' if deal == 0 else 'sell'
     tempCity = 'МСК' if city == 0 else 'СПБ'
-    #qlist = rbcqread(tempCity, tempDeal, currency[cur], nquotes)
-    qlist = ['12', 35.12345123, [['35', 'АКБ Банк', 'Марьино'], ['34,3', 'СБК Банк', 'Митино'], ['35,15', 'Альфа банк', 'Сокол'], ['33', 'Мой банк', 'Сокольники'], ['33', 'Твой банк', 'Фили'], ['33,7', 'Ваш банк', 'Библиотека имени Ленина']]]
+    qlist = rbcqread(tempCity, tempDeal, currency[cur], nquotes)
+    #qlist = ['12', 35.12345123, [['35', 'АКБ Банк', 'Марьино'], ['34,3', 'СБК Банк', 'Митино'], ['35,15', 'Альфа банк', 'Сокол'], ['33', 'Мой банк', 'Сокольники'], ['33', 'Твой банк', 'Фили'], ['33,7', 'Ваш банк', 'Библиотека имени Ленина']]]
 
     if metro != '':
         sort_by_metro_lst = findNearestMetro(metro, qlist[2])
