@@ -43,7 +43,6 @@ def cbquotes(dd, mm, yyyy):
     regTRopen = re.compile('<tr>', flags=re.U | re.DOTALL)
     regTRClose = re.compile('</tr>', flags=re.U | re.DOTALL)
     regTag = re.compile('<.*?>', flags=re.U | re.DOTALL)
-
     for t in titles:
         t = t.replace('\r', '')
         t = t.replace('\n', '')

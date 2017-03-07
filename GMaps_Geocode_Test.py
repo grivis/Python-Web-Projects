@@ -7,7 +7,7 @@ from datetime import datetime
 gmaps = googlemaps.Client(key='AIzaSyAdFmqaYcof2P1b7UqaCFahdWJ03wismcY')
 
 # Geocoding an address
-geocode_result = gmaps.geocode(address='Ленинский проспект, дом 1',
+geocode_result = gmaps.geocode(address='улица Каховка, дом 31, корпус 1',
                                language='ru')
 for item in geocode_result[0]['address_components']:
     print(item)
